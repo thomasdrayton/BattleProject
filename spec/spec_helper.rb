@@ -11,7 +11,13 @@
 # a separate helper file that requires the additional dependencies and performs
 # the additional setup, and require it from the spec files that actually need
 # it.
-#
+require 'app'
+require 'capybara'
+require 'rspec'
+require 'capybara/rspec'
+Capybara.app = Battle
+
+ENV['RACK_ENV'] = 'test'
 # The `.rspec` file also contains a few flags that are not defaults but that
 # users commonly want.
 #
@@ -29,6 +35,7 @@ RSpec.configure do |config|
     # ...rather than:
     #     # => "be bigger than 2"
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
+    config.include Capybara::DSL #added by Tom Tues April 25th
   end
 
   # rspec-mocks config goes here. You can use an alternate test double
